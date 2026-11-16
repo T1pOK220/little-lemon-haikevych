@@ -2,7 +2,12 @@ import * as SQLite from 'expo-sqlite';
 export type Customer = { id: number; name: string };
 let opening: Promise<SQLite.SQLiteDatabase> | undefined;
 async function initialize(): Promise<SQLite.SQLiteDatabase> {
-const db = await SQLite.openDatabaseAsync('little-lemon-customers.db');
+const db = await SQLite.openDatabaseAsync(
+  'little-lemon-customers.db',
+  {
+    useNewConnection: false,
+  }
+);
 try {
 await db.execAsync('PRAGMA foreign_keys = ON;');
 const row = await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version');

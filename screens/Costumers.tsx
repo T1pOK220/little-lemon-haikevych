@@ -20,7 +20,6 @@ export default function CustomersScreen({colors}: Props){
   const [searchQuery, setSearchQuery] = useState('');
   const [allCustomersCount, setAllCustomersCount] = useState(0);
   const [showForm, setShowForm] = useState(false);
-  const filteredCustomers = customers.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase()));
   useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
   useEffect(() => {
     let active = true;
@@ -69,12 +68,11 @@ export default function CustomersScreen({colors}: Props){
   }
   return <SafeAreaView style={[styles.page, { backgroundColor: colors.background }]}>
     <Text style={[styles.heading, { color: colors.accent, alignItems: 'center' }]}>Клієнти Little Lemon</Text>
-    <Button title={showForm ? 'Показати форму' : 'Показати форму'} color={colors.accent} onPress={() => setShowForm(s => !s)} />
-   {showForm && <View>
+  <View>
      <Text style={[styles.lable, { color: colors.text }]}>
       {editingId === null ? 'Новий клієнт' : `Редагування ID ${editingId}`}
     </Text>
-     <TextInput accessibilityLabel="Ім'я клієнта" placeholder="Наприклад, Іван"
+     <TextInput accessibilityLabel="Ім'я клієнта" placeholder="Наприклад, Денис"
       value={draft} onChangeText={setDraft} maxLength={80} editable={ready && !busy} style={[styles.input, { color: colors.text, borderColor: colors.border ,backgroundColor: colors.surface}]} />
     <Button disabled={!ready || busy || draft.trim() === ''} color={colors.accent} title={editingId === null ? 'Додати' : 'Зберегти ім\'я'}
       onPress={() => { void mutate(() => editingId === null ? addCustomer(draft) : renameCustomer(editingId, draft), true); }} />
@@ -83,14 +81,11 @@ export default function CustomersScreen({colors}: Props){
     {busy && <ActivityIndicator accessibilityLabel="Робота з базою" />}
     {error !== '' && <Text accessibilityLiveRegion="polite" style={[styles.error, { color: colors.text }]}>{error}</Text>}
    </View>
-   }
-    <TextInput accessibilityLabel="Ім'я клієнта" placeholder="Пошук клієнта..."
-      value={searchQuery} onChangeText={setSearchQuery} maxLength={80} editable={ready && !busy} style={[styles.input, { color: colors.text, borderColor: colors.border ,backgroundColor: colors.surface}]} />
     <Button color={colors.accent} title="Оновити список" disabled={busy} onPress={() => setAttempt(n => n + 1)} />
     <Text style={[styles.lable, { color: colors.text }]}>
-      {`Всього клієнтів: ${allCustomersCount}, відображено: ${filteredCustomers.length}`}
+      {`Всього клієнтів: ${allCustomersCount}, відображено: ${customers.length}`}
     </Text>
-    <FlatList data={filteredCustomers} keyExtractor={item => String(item.id)}
+    <FlatList data={customers} keyExtractor={item => String(item.id)}
       ListEmptyComponent={!busy && ready ? <Text style={[styles.error, { color: colors.text }]}>Немає клієнтів для відображення.</Text> : undefined}
       renderItem={({ item }) => <View style={styles.book}>
         <Text style={[styles.id, { color: colors.accent }]}>ID {item.id}</Text>
@@ -106,7 +101,7 @@ const styles = StyleSheet.create({
   page: { flex: 1, padding: 18, gap: 10, backgroundColor: '#fff' },
   heading: { fontSize: 26, fontWeight: '700', color: '#1659a5' },
   input: { borderWidth: 1, borderColor: '#718096', borderRadius: 4, padding: 12, color: '#111' },
-  book: { paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: '#d8e0e8', gap: 8 },
+  book: { paddingVertical: 16, borderWidth: 1, borderColor: '#d8e0e8', gap: 8 ,marginBottom:10,padding:10},
   title: { fontSize: 18 }, buttons: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 }, error: { color: '#9b2525' },
   lable: { fontSize: 16, fontWeight: '600' },
   id: { fontSize: 14, fontWeight: '600' },
