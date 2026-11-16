@@ -24,13 +24,13 @@ accessibilityLabel="Логотип Little Lemon"
 екран привітання для {email}</Text>
 <Pressable
 onPress={onExit}
-style={[styles.btn,{backgroundColor:colors.accent}]}
+style={[styles.btn,{backgroundColor:colors.error}]}
 >
     <Text style={[styles.text,{color:colors.onAccent}]}>Повернутися до форми</Text>
 </Pressable>
 <Pressable
 onPress={onContinue}
-style={[styles.btn,{backgroundColor:colors.accent}]}
+style={[styles.btn,{backgroundColor:colors.error}]}
 >
     <Text style={[styles.text,{color:colors.onAccent}]}>Перейти до меню</Text>
 </Pressable>

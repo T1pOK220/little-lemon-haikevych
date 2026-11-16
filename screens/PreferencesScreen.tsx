@@ -68,34 +68,34 @@ export default function PreferencesScreen() {
     <SafeAreaView style={styles.safe}>
       <ScrollView contentContainerStyle={styles.page}>
         <Text style={styles.heading}>Налаштування Little Lemon</Text>
-        <Text>Змініть параметри й натисніть «Зберегти».</Text>
+        <Text style={styles.text}>Змініть параметри й натисніть «Зберегти».</Text>
         {busy && <ActivityIndicator accessibilityLabel="Робота зі сховищем" />}
         {ready && keys.map(key => (
           <View key={key} style={styles.row}>
-            <Text>{labels[key]}</Text>
+            <Text style={styles.text}>{labels[key]}</Text>
             <Switch accessibilityLabel={labels[key]} value={draft[key]} disabled={busy}
               onValueChange={value => setDraft(prev => ({ ...prev, [key]: value }))} />
           </View>
         ))}
         {ready && (
           <View accessibilityLiveRegion="polite">
-            <Text style={styles.summaryTitle}>Вибрано {summary.count} із {keys.length}</Text>
-            <Text>{summary.text}</Text>
+            <Text style={styles.text}>Вибрано {summary.count} із {keys.length}</Text>
+            <Text style={styles.text}>{summary.text}</Text>
           </View>
         )}
-        {notice !== '' && <Text accessibilityLiveRegion="polite" style={styles.notice}>{notice}</Text>}
-        <Button title="Зберегти" disabled={!ready || busy} onPress={() => { void persist(false); }} />
-        <Button title="Скинути власні налаштування" disabled={busy} onPress={() => { void persist(true); }} />
+        {notice !== '' && <Text accessibilityLiveRegion="polite" style={styles.text}>{notice}</Text>}
+        <Button color={styles.heading.color} title="Зберегти" disabled={!ready || busy} onPress={() => { void persist(false); }} />
+        <Button  color={styles.heading.color} title="Скинути власні налаштування" disabled={busy} onPress={() => { void persist(true); }} />
         {!ready && !busy && <Button title="Повторити читання" onPress={() => setAttempt(n => n + 1)} />}
       </ScrollView>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#fff' }, page: { padding: 20, gap: 14 },
-  heading: { fontSize: 26, fontWeight: '700', color: '#1659a5' },
+  safe: { flex: 1, backgroundColor: '#23312A' }, page: { padding: 20, gap: 14 },
+  heading: { fontSize: 26, fontWeight: '700', color: '#FFB4AB' },
   row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10 },
-  notice: { color: '#164a78', paddingVertical: 12 },
+  notice: { color: '#FFB4AB', paddingVertical: 12 },
     summaryTitle: { fontWeight: '600' },
-
+    text:{color:"#fff"}
 });
