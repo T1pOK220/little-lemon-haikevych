@@ -38,7 +38,7 @@ disabled={loading}
 onPress={reload}
 style={({ pressed }) => [
 styles.button,
-{ backgroundColor: colors.accent },
+{ backgroundColor: colors.error },
 (pressed || loading) && styles.dimmed,
 ]}
 >
@@ -84,7 +84,7 @@ renderItem={({ item }) => (
 <View
 style={[
 styles.card,
-{ backgroundColor: colors.surface, borderColor: colors.border },
+{ backgroundColor: colors.surface, borderColor: colors.accent,borderWidth:2 },
 ]}
 >
 <Text style={[styles.title, { color: colors.text }]}>{item.title}</Text>

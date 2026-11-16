@@ -36,7 +36,7 @@ return( <KeyboardAvoidingView
         contentContainerStyle={[styles.form,{backgroundColor:colors.surface}]}
         keyboardShouldPersistTaps="handled"
         keyboardDismissMode="on-drag">
-       <Text style={[styles.text,{color:colors.accent}]}>Вхід до Little Lemon</Text>
+       <Text style={[styles.text,{color:colors.error}]}>Little Lemon</Text>
        <Text style={[styles.lable,{color:colors.text}]}>Email</Text>
         <TextInput 
     style={[
@@ -84,8 +84,8 @@ placeholderTextColor={colors.muted}
             accessibilityRole="button"
             onPress={handleContinue}
             style={({ pressed }) => [
-                styles.button,{ backgroundColor: colors.accent },pressed && styles.buttonPressed,]}>
-                <Text style={[styles.buttonText, { color: colors.onAccent }]}>Увійти (демо)</Text>
+                styles.button,{ backgroundColor: colors.error },pressed && styles.buttonPressed,]}>
+                <Text style={[styles.buttonText, { color: colors.onAccent }]}>Увійти</Text>
 </Pressable>
 </ScrollView>
 </KeyboardAvoidingView>
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     text:{
         fontSize:24,
         fontWeight:600,
-        color:"#f8e621"
+        color:"#f82121"
     },
     lable:{
         color:"#ffffff",
